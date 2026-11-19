@@ -1,0 +1,284 @@
+@startuml diagrama-classes
+title Alerta Cidadão - Diagrama de Classes (Java)
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classFontSize 13
+skinparam packageStyle rectangle
+skinparam nodesep 40
+skinparam ranksep 60
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #2E7D32
+  ArrowColor #333333
+}
+skinparam package {
+  BorderColor #888888
+  BackgroundColor #F7F7F7
+}
+
+package "model" {
+  class Regiao {
+    - id : int
+    - nome : String
+    - cidade : String
+    - estado : String
+    - areaDeRisco : boolean
+    + Regiao(nome : String, cidade : String, estado : String, areaDeRisco : boolean)
+    + getId() : int
+    + setId(id : int) : void
+    + getNome() : String
+    + setNome(nome : String) : void
+    + getCidade() : String
+    + setCidade(cidade : String) : void
+    + getEstado() : String
+    + setEstado(estado : String) : void
+    + isAreaDeRisco() : boolean
+    + setAreaDeRisco(areaDeRisco : boolean) : void
+    + toString() : String
+  }
+
+  class Cidadao {
+    - id : int
+    - nome : String
+    - telefone : String
+    - email : String
+    - regiao : Regiao
+    + Cidadao(nome : String, telefone : String, email : String, regiao : Regiao)
+    + getId() : int
+    + setId(id : int) : void
+    + getNome() : String
+    + setNome(nome : String) : void
+    + getTelefone() : String
+    + setTelefone(telefone : String) : void
+    + getEmail() : String
+    + setEmail(email : String) : void
+    + getRegiao() : Regiao
+    + setRegiao(regiao : Regiao) : void
+    + toString() : String
+  }
+
+  class Leitura {
+    - id : int
+    - regiao : Regiao
+    - tipo : String
+    - valor : double
+    - dataHora : LocalDateTime
+    + Leitura(regiao : Regiao, tipo : String, valor : double)
+    + getId() : int
+    + setId(id : int) : void
+    + getRegiao() : Regiao
+    + setRegiao(regiao : Regiao) : void
+    + getTipo() : String
+    + setTipo(tipo : String) : void
+    + getValor() : double
+    + setValor(valor : double) : void
+    + getDataHora() : LocalDateTime
+    + setDataHora(dataHora : LocalDateTime) : void
+    + toString() : String
+  }
+
+  class Alerta {
+    - id : int
+    - regiao : Regiao
+    - tipoEvento : String
+    - nivel : String
+    - descricao : String
+    - dataHora : LocalDateTime
+    - ativo : boolean
+    + Alerta(regiao : Regiao, tipoEvento : String, nivel : String, descricao : String)
+    + getId() : int
+    + setId(id : int) : void
+    + getRegiao() : Regiao
+    + setRegiao(regiao : Regiao) : void
+    + getTipoEvento() : String
+    + setTipoEvento(tipoEvento : String) : void
+    + getNivel() : String
+    + setNivel(nivel : String) : void
+    + getDescricao() : String
+    + setDescricao(descricao : String) : void
+    + getDataHora() : LocalDateTime
+    + setDataHora(dataHora : LocalDateTime) : void
+    + isAtivo() : boolean
+    + setAtivo(ativo : boolean) : void
+    + toString() : String
+  }
+}
+
+package "service" {
+  class RegiaoService {
+    - regioes : List<Regiao>
+    - proximoId : int
+    - cidadaoService : CidadaoService
+    - leituraService : LeituraService
+    - alertaService : AlertaService
+    + configurarVinculos(cidadaoService : CidadaoService, leituraService : LeituraService, alertaService : AlertaService) : void
+    + cadastrar(nome : String, cidade : String, estado : String, areaDeRisco : boolean) : Regiao
+    + listar() : List<Regiao>
+    + buscarPorId(id : int) : Regiao
+    + buscarPorNome(trecho : String) : List<Regiao>
+    + atualizar(id : int, nome : String, cidade : String, estado : String, areaDeRisco : boolean) : Regiao
+    + remover(id : int) : void
+    - verificarDuplicada(nome : String, cidade : String, idIgnorado : int) : void
+  }
+
+  class CidadaoService {
+    - cidadaos : List<Cidadao>
+    - proximoId : int
+    - regiaoService : RegiaoService
+    + CidadaoService(regiaoService : RegiaoService)
+    + cadastrar(nome : String, telefone : String, email : String, regiaoId : int) : Cidadao
+    + listar() : List<Cidadao>
+    + buscarPorId(id : int) : Cidadao
+    + buscarPorNome(trecho : String) : List<Cidadao>
+    + listarPorRegiao(regiaoId : int) : List<Cidadao>
+    + atualizar(id : int, nome : String, telefone : String, email : String, regiaoId : int) : Cidadao
+    + remover(id : int) : void
+    - verificarEmailUnico(email : String, idIgnorado : int) : void
+  }
+
+  class LeituraService {
+    + {static} TIPOS : String[]
+    - {static} CHUVA_ALTA : double
+    - {static} CHUVA_CRITICA : double
+    - {static} CHUVA_DESLIZAMENTO : double
+    - {static} RIO_ALTO : double
+    - {static} RIO_CRITICO : double
+    - {static} TEMPERATURA_ALTA : double
+    - {static} TEMPERATURA_CRITICA : double
+    - {static} UMIDADE_BAIXA : double
+    - {static} UMIDADE_CRITICA : double
+    - leituras : List<Leitura>
+    - proximoId : int
+    - regiaoService : RegiaoService
+    - alertaService : AlertaService
+    + LeituraService(regiaoService : RegiaoService, alertaService : AlertaService)
+    + registrar(regiaoId : int, tipo : String, valor : double) : List<Alerta>
+    + listar() : List<Leitura>
+    + listarPorRegiao(regiaoId : int) : List<Leitura>
+    + buscarPorId(id : int) : Leitura
+    + remover(id : int) : void
+    - validarValor(tipo : String, valor : double) : void
+    - analisarRisco(leitura : Leitura) : List<Alerta>
+    - adicionar(gerados : List<Alerta>, alerta : Alerta) : void
+  }
+
+  class AlertaService {
+    + {static} TIPOS : String[]
+    + {static} NIVEIS : String[]
+    - alertas : List<Alerta>
+    - proximoId : int
+    - regiaoService : RegiaoService
+    - cidadaoService : CidadaoService
+    + AlertaService(regiaoService : RegiaoService, cidadaoService : CidadaoService)
+    + emitir(regiaoId : int, tipoEvento : String, nivel : String, descricao : String) : Alerta
+    ~ registrar(regiao : Regiao, tipoEvento : String, nivel : String, descricao : String) : Alerta
+    + listar() : List<Alerta>
+    + listarAtivos() : List<Alerta>
+    + listarPorRegiao(regiaoId : int) : List<Alerta>
+    + buscarPorId(id : int) : Alerta
+    + atualizar(id : int, nivel : String, descricao : String) : Alerta
+    + encerrar(id : int) : void
+    + remover(id : int) : void
+    + cidadaosANotificar(alerta : Alerta) : List<Cidadao>
+    - peso(nivel : String) : int
+  }
+
+  class Validador {
+    + {static} texto(valor : String, campo : String) : String
+    + {static} telefone(telefone : String) : String
+    + {static} email(email : String) : String
+    + {static} uf(uf : String) : String
+    + {static} opcao(valor : String, campo : String, permitidos : String[]) : String
+    + {static} faixa(valor : double, min : double, max : double, campo : String) : void
+  }
+
+  class DadosExemplo {
+    + {static} carregar(regioes : RegiaoService, cidadaos : CidadaoService, leituras : LeituraService) : void
+  }
+}
+
+package "view" {
+  class Menu {
+    - scanner : Scanner
+    - regiaoService : RegiaoService
+    - cidadaoService : CidadaoService
+    - leituraService : LeituraService
+    - alertaService : AlertaService
+    + Menu(regiaoService : RegiaoService, cidadaoService : CidadaoService, leituraService : LeituraService, alertaService : AlertaService)
+    + iniciar() : void
+    - menuRegioes() : void
+    - cadastrarRegiao() : void
+    - atualizarRegiao() : void
+    - removerRegiao() : void
+    - menuCidadaos() : void
+    - cadastrarCidadao() : void
+    - atualizarCidadao() : void
+    - removerCidadao() : void
+    - menuLeituras() : void
+    - registrarLeitura() : void
+    - removerLeitura() : void
+    - menuAlertas() : void
+    - emitirAlerta() : void
+    - atualizarAlerta() : void
+    - removerAlerta() : void
+    - mostrarAlertaComNotificacoes(a : Alerta) : void
+    - titulo(texto : String) : void
+    - imprimirLista(lista : List<?>) : void
+    - escolherRegiao() : int
+    - escolherOpcao(campo : String, opcoes : String[]) : String
+    - lerTexto(mensagem : String) : String
+    - lerTextoOuManter(campo : String, valorAtual : String) : String
+    - lerInt(mensagem : String) : int
+    - lerDouble(mensagem : String) : double
+    - lerSimNao(mensagem : String) : boolean
+    - lerSimNaoOuManter(mensagem : String, valorAtual : boolean) : boolean
+    - converterInt(texto : String) : int
+  }
+}
+
+class Main {
+  + {static} main(args : String[]) : void
+}
+
+Cidadao "0..*" --> "1" Regiao : pertence a
+Leitura "0..*" --> "1" Regiao : medida em
+Alerta "0..*" --> "1" Regiao : emitido para
+
+RegiaoService "1" o-- "0..*" Regiao : regioes
+CidadaoService "1" o-- "0..*" Cidadao : cidadaos
+LeituraService "1" o-- "0..*" Leitura : leituras
+AlertaService "1" o-- "0..*" Alerta : alertas
+
+CidadaoService --> RegiaoService
+AlertaService --> RegiaoService
+AlertaService --> CidadaoService
+LeituraService --> RegiaoService
+LeituraService --> AlertaService
+RegiaoService ..> CidadaoService : configurarVinculos
+RegiaoService ..> LeituraService : configurarVinculos
+RegiaoService ..> AlertaService : configurarVinculos
+
+RegiaoService ..> Validador
+CidadaoService ..> Validador
+LeituraService ..> Validador
+AlertaService ..> Validador
+DadosExemplo ..> RegiaoService
+DadosExemplo ..> CidadaoService
+DadosExemplo ..> LeituraService
+
+Menu --> RegiaoService
+Menu --> CidadaoService
+Menu --> LeituraService
+Menu --> AlertaService
+
+Main ..> Menu : cria e inicia
+Main ..> DadosExemplo : carrega dados
+
+note bottom of Main
+  Main também cria os quatro services
+  e os entrega ao Menu.
+end note
+
+@enduml
