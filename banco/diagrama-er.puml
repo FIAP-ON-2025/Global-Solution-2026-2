@@ -1,0 +1,69 @@
+@startuml diagrama-er
+title Alerta Cidadão - Diagrama Entidade-Relacionamento (Oracle)
+
+hide circle
+hide methods
+skinparam linetype ortho
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classFontSize 13
+skinparam nodesep 60
+skinparam ranksep 70
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #2E7D32
+  ArrowColor #333333
+  HeaderBackgroundColor #E8F5E9
+}
+
+entity "REGIAO" as regiao {
+  * <<PK>> id_regiao : NUMBER <<identity>>
+  --
+  * nome : VARCHAR2(100)
+  * cidade : VARCHAR2(100)
+  * estado : CHAR(2)
+  * area_risco : CHAR(1) <<'S' / 'N'>>
+  --
+  <<UK>> (nome, cidade)
+}
+
+entity "CIDADAO" as cidadao {
+  * <<PK>> id_cidadao : NUMBER <<identity>>
+  --
+  * nome : VARCHAR2(100)
+  * telefone : VARCHAR2(11) <<10 a 11 dígitos>>
+  * <<UK>> email : VARCHAR2(150)
+  * <<FK>> id_regiao : NUMBER
+}
+
+entity "LEITURA" as leitura {
+  * <<PK>> id_leitura : NUMBER <<identity>>
+  --
+  * tipo : VARCHAR2(20) <<CHUVA, NIVEL_RIO, TEMPERATURA, UMIDADE>>
+  * valor : NUMBER(6,2)
+  * data_hora : TIMESTAMP
+  * <<FK>> id_regiao : NUMBER
+}
+
+entity "ALERTA" as alerta {
+  * <<PK>> id_alerta : NUMBER <<identity>>
+  --
+  * tipo_evento : VARCHAR2(20) <<ENCHENTE, DESLIZAMENTO, INCENDIO, ONDA_CALOR>>
+  * nivel : VARCHAR2(10) <<BAIXO, MEDIO, ALTO, CRITICO>>
+  * descricao : VARCHAR2(255)
+  * data_hora : TIMESTAMP
+  * ativo : CHAR(1) <<'S' / 'N'>>
+  * <<FK>> id_regiao : NUMBER
+}
+
+regiao ||--o{ cidadao : "mora em"
+regiao ||--o{ leitura : "medida em"
+regiao ||--o{ alerta : "emitido para"
+
+note bottom of regiao
+  Uma região tem 0..N cidadãos, leituras e alertas.
+  Cada cidadão, leitura e alerta pertence a exatamente 1 região
+  (chaves estrangeiras fk_cidadao_regiao, fk_leitura_regiao, fk_alerta_regiao).
+end note
+
+@enduml

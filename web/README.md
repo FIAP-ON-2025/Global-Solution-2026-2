@@ -5,26 +5,23 @@ Protótipo web acadêmico (HTML, CSS e JavaScript puro), sem backend, banco ou A
 ## Como executar
 Abra `index.html` no navegador. Use o menu para navegar entre as quatro páginas.
 
-## Entidades propostas para alinhar com o grupo
-- Usuario: id, nome, email, cidade
-- AreaRisco: id, nome, cidade, estado, nivelRisco
-- EventoClimatico: id, tipo, data, intensidade, areaId
-- Alerta: id, tipo, nivel, mensagem, data, areaId
-- Ocorrencia: id, tipo, descricao, data, usuarioId, areaId
+## Páginas
+- `index.html`: painel com totais de áreas, alertas ativos e moradores cadastrados, e a lista de alertas ativos
+- `areas.html`: regiões monitoradas, com filtro por nível de risco e busca por nome ou cidade
+- `alertas.html`: alertas ativos, com filtros por região, tipo de risco e gravidade
+- `cadastro.html`: cadastro para receber avisos (nome, telefone, e-mail, região e aceite), com validação e mensagens na própria página
 
-Relacionamentos sugeridos: AreaRisco 1:N EventoClimatico; AreaRisco 1:N Alerta; AreaRisco 1:N Ocorrencia; Usuario 1:N Ocorrencia.
+## Dados
+Os dados ficam em arrays de objetos em `script.js` e são os mesmos do sistema Java (`DadosExemplo.java`) e do script do banco: regiões, alertas e cidadãos. A validação do telefone e do e-mail segue as mesmas regras do `Validador.java`.
 
-## Requisitos
+## Requisitos atendidos
 - 4 páginas com navegação compartilhada e HTML semântico
 - Arrays de objetos em JS, renderização e filtros pelo DOM
 - Formulário validado com mensagens na própria página
 - CSS responsivo para celular e desktop
 
 ## Limitações
-Os dados e alertas são fictícios. Não há previsão meteorológica, notificação real ou persistência. Registros do formulário se perdem ao atualizar a página. Não usar para decisões de emergência.
+Os dados e alertas são fictícios. Não há previsão meteorológica, envio real de SMS ou persistência. Cadastros feitos no formulário se perdem ao atualizar a página. Não usar para decisões de emergência.
 
 ## Uso de IA
-Código inicial criado com apoio de IA generativa; o grupo deve revisar, entender, testar e declarar o uso conforme o enunciado da FIAP.
-
-## Versão visual
-Interface redesenhada; os arquivos JavaScript e as funcionalidades originais foram preservados. A fonte web usa fallback local se não houver conexão.
+Código criado com apoio de IA generativa; o grupo deve revisar, entender, testar e declarar o uso conforme o enunciado da FIAP.
