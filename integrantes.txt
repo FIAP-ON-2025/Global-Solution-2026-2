@@ -1,10 +1,10 @@
-Grupo: [nome do grupo]
+Grupo: Órbita
 
 Integrantes:
-RM [00000] - [Nome completo]
-RM [00000] - [Nome completo]
-RM [00000] - [Nome completo]
-RM [00000] - [Nome completo]
-RM [00000] - [Nome completo]
+RM568139 - Felipe Meneguzzi
+RM566594 - André Luis Pino Costa
+RM567454 - Elizabeth Alves da Silva
+RM567838 - Iris de Cicco Benfatti
+RM566824 - Enrico Dellatore da Fonseca
 
 Vídeo pitch: [link público do vídeo]
