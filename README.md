@@ -1,12 +1,18 @@
-# Alerta Cidadão
+#  Alerta Cidadão
 
 ## Projeto Acadêmico — Global Solution FIAP 2026.1
 
-**Uma solução digital para simular o monitoramento de áreas de risco e a apresentação de alertas à população.**
+Uma solução digital voltada ao monitoramento de situações de risco, organização de informações e comunicação de alertas à população.
 
-O **Alerta Cidadão** é um projeto acadêmico que busca demonstrar como a tecnologia pode auxiliar na identificação de situações de risco, organização de informações e comunicação preventiva com os cidadãos.
+O **Alerta Cidadão** tem como objetivo auxiliar na identificação de possíveis situações de risco, permitindo o acompanhamento de regiões, cidadãos, leituras e alertas relacionados a eventos que possam representar ameaças à comunidade.
 
-A proposta contempla situações como enchentes, deslizamentos, incêndios e ondas de calor, por meio de três módulos: aplicação Java, banco de dados e aplicação Web.
+---
+
+## 🎯 Objetivo do projeto
+
+Desenvolver uma solução que contribua para o monitoramento de regiões e o gerenciamento de informações relacionadas a possíveis situações de risco, utilizando recursos tecnológicos para organizar dados e facilitar o acesso às informações.
+
+O projeto foi desenvolvido em três módulos: aplicação Java, banco de dados e aplicação Web.
 
 ---
 
@@ -22,14 +28,10 @@ A proposta contempla situações como enchentes, deslizamentos, incêndios e ond
 
 ---
 
-## 🎯 1. Objetivo do projeto
-
-Desenvolver uma solução digital composta por três módulos que simulam o acompanhamento de regiões, cidadãos, leituras de sensores e alertas relacionados a situações de risco.
-
-## 📁 2. Estrutura do projeto
+## 📁 Estrutura do projeto
 
 ```text
-Global Solution 2026.1/
+Global-Solution-2026-1/
 │
 ├── banco/
 │   └── alerta_cidadao.sql
@@ -48,160 +50,158 @@ Global Solution 2026.1/
 │
 ├── web/
 │   ├── index.html
-│   ├── areas.html
-│   ├── alertas.html
-│   ├── cadastro.html
-│   ├── style.css
+│   ├── arquivos da aplicação Web
 │   └── README.md
+│
+├── .github/
+│   └── workflows/
+│       └── static.yml
 │
 ├── integrantes.txt
 └── README.md
 ```
 
-## ☕ 3. Módulo Java
+---
 
-A aplicação Java funciona por meio de um menu interativo no console e possui uma organização em camadas, separando a interface, as regras de negócio e as entidades do sistema.
+## ☕ 1. Aplicação Java
 
-### Organização das classes
+A aplicação Java foi desenvolvida com organização em classes e separação de responsabilidades, utilizando uma estrutura dividida em modelos, serviços e interface de interação.
 
-| Camada | Responsabilidade |
-|---|---|
-| `model` | Representação das entidades do sistema. |
-| `service` | Implementação das regras de negócio e operações. |
-| `view` | Interface de interação com o usuário pelo console. |
-| `Main` | Inicialização da aplicação. |
+Entre as funcionalidades desenvolvidas estão:
 
-### Entidades principais
+- Cadastro, consulta, atualização e remoção de regiões.
+- Gerenciamento de cidadãos.
+- Registro e consulta de leituras.
+- Geração e gerenciamento de alertas.
+- Validações de dados durante as operações.
 
-- **Regiao:** representa as regiões monitoradas.
-- **Cidadao:** armazena informações dos cidadãos.
-- **Leitura:** representa os dados obtidos pelos sensores.
-- **Alerta:** representa os alertas associados às regiões.
+A aplicação utiliza classes responsáveis pela representação das entidades e serviços que executam as operações do sistema.
 
-### Funcionalidades
+### Como executar
 
-- Cadastro, consulta, atualização e remoção de cidadãos.
-- Cadastro e consulta de regiões.
-- Registro e consulta de leituras de sensores.
-- Identificação de situações de risco.
-- Geração e consulta de alertas.
-- Validação de informações inseridas pelo usuário.
+1. Abra o projeto em uma IDE compatível com Java.
+2. Localize o arquivo `Main.java`.
+3. Execute a aplicação.
+4. Utilize o menu apresentado no terminal para acessar as funcionalidades.
 
-## 🗄️ 4. Banco de dados
+---
 
-O projeto utiliza um banco de dados relacional desenvolvido em **MySQL**, organizado em quatro tabelas principais.
+## 🗄️ 2. Banco de dados
 
-| Tabela | Descrição |
-|---|---|
-| `regiao` | Armazena as regiões monitoradas e sua identificação de área de risco. |
-| `cidadao` | Armazena os dados dos cidadãos e sua região associada. |
-| `leitura` | Registra as leituras dos sensores vinculadas às regiões. |
-| `alerta` | Armazena os alertas gerados e seus respectivos níveis de risco. |
+O banco de dados foi desenvolvido em MySQL, utilizando relacionamentos entre as entidades do projeto.
 
-### Relacionamentos
+O script está disponível em:
 
-- Uma região pode estar associada a vários cidadãos.
-- Uma região pode possuir várias leituras.
-- Uma região pode possuir vários alertas.
+`banco/alerta_cidadao.sql`
 
-Os relacionamentos são estabelecidos por meio de chaves estrangeiras, utilizando o campo `id_regiao`.
+### Tabelas utilizadas
+
+- **regiao:** armazena informações das regiões monitoradas.
+- **cidadao:** registra os cidadãos associados às regiões.
+- **leitura:** armazena informações das leituras realizadas.
+- **alerta:** registra os alertas relacionados às situações de risco.
 
 ### Recursos implementados
 
-- Chaves primárias (PK).
-- Chaves estrangeiras (FK).
-- Restrições de unicidade (`UNIQUE`).
-- Campos obrigatórios (`NOT NULL`).
-- Restrições de validação (`CHECK`).
-- Inserção de dados para demonstração.
-- Consulta utilizando `INNER JOIN`.
+- Chaves primárias (PRIMARY KEY).
+- Chaves estrangeiras (FOREIGN KEY).
+- Restrições de integridade (NOT NULL).
+- Restrições de unicidade (UNIQUE).
+- Restrições de validação (CHECK).
+- Registros de exemplo (INSERT).
+- Consultas utilizando relacionamentos entre tabelas (INNER JOIN).
 
-📄 **Script SQL:** `banco/alerta_cidadao.sql`
+### Como executar
 
-**Requisito:** MySQL 8.0.16 ou superior.
+1. Abra o MySQL ou uma ferramenta compatível.
+2. Localize o arquivo `alerta_cidadao.sql`.
+3. Execute o script no ambiente MySQL.
 
-## 🌐 5. Aplicação Web
+**Atenção:** o script contém comandos DROP TABLE para recriar as tabelas. Sua execução remove as tabelas existentes com esses nomes e seus dados.
 
-A aplicação Web foi desenvolvida com HTML5, CSS3 e JavaScript puro, apresentando uma interface responsiva e navegação entre diferentes páginas.
+Recomendação: utilizar MySQL 8.0.16 ou superior para garantir o suporte às restrições CHECK utilizadas.
 
-### Páginas disponíveis
+---
 
-| Página | Funcionalidade |
-|---|---|
-| `index.html` | Painel inicial com totais de áreas, alertas ativos e moradores cadastrados. |
-| `areas.html` | Apresentação das regiões monitoradas, com filtros por nível de risco e busca por nome ou cidade. |
-| `alertas.html` | Consulta de alertas ativos, com filtros por região, tipo de risco e gravidade. |
-| `cadastro.html` | Formulário para cadastro de pessoas interessadas em receber avisos. |
+## 🌐 3. Aplicação Web
 
-### Características da aplicação
+A aplicação Web apresenta uma interface voltada à visualização de informações relacionadas ao monitoramento de regiões e alertas.
 
-- Navegação compartilhada entre as páginas.
-- Dados organizados em arrays de objetos JavaScript.
-- Exibição e filtragem de informações na interface.
-- Formulário com validação e mensagens na própria página.
-- Layout responsivo para computadores e dispositivos móveis.
+Foram utilizados HTML, CSS e JavaScript para desenvolver a interface e suas funcionalidades.
 
-### ⚠️ Limitações da simulação
+### Recursos desenvolvidos
 
-A aplicação utiliza dados fictícios e possui finalidade acadêmica e demonstrativa. Não realiza previsão meteorológica, envio real de SMS ou armazenamento permanente dos cadastros. As informações inseridas no formulário são perdidas ao atualizar a página.
+- Interface com informações organizadas sobre o projeto.
+- Visualização de regiões e alertas.
+- Utilização de arrays em JavaScript para organizar os dados.
+- Filtros e manipulação de informações no DOM.
+- Formulário com validação de campos.
+- Layout responsivo para diferentes tamanhos de tela.
 
-O protótipo não deve ser utilizado para decisões reais de emergência.
+**Observação:** a aplicação Web utiliza dados fictícios e não possui integração com serviços externos de previsão meteorológica ou envio real de SMS. Os cadastros realizados na interface não são armazenados em um banco de dados.
 
-## 📊 6. Diagramas
+### Acesso à aplicação
 
-O repositório disponibiliza o diagrama de classes da aplicação Java nos seguintes formatos:
+🌐 **GitHub Pages:**
 
-- PDF: `diagrama-classes.pdf`
-- Imagem: `diagrama-classes.png`
-- PlantUML: `diagrama-classes.puml`
+https://fiap-on-2025.github.io/Global-Solution-2026-1/
 
-Os arquivos estão disponíveis na pasta `diagramas/` e permitem consultar a estrutura das classes e seus relacionamentos.
+---
 
-## ▶️ 7. Como executar o projeto
+## 📊 4. Diagramas
 
-### ☕ Java
+O projeto possui documentação visual da estrutura da aplicação Java por meio de um diagrama de classes UML.
 
-1. Abra a pasta `java` em uma IDE compatível com Java.
-2. Localize o arquivo `Main.java`.
-3. Execute a aplicação para acessar o menu pelo console.
+Arquivos disponíveis na pasta `diagramas/`:
 
-### 🗄️ Banco de dados
+- `diagrama-classes.pdf`
+- `diagrama-classes.png`
+- `diagrama-classes.puml`
 
-1. Instale e inicie o MySQL 8.0.16 ou superior.
-2. Abra o arquivo `banco/alerta_cidadao.sql` em uma ferramenta compatível.
-3. Execute o script para criar o banco, as tabelas e inserir os dados de demonstração.
+O diagrama apresenta as principais classes, seus relacionamentos e a organização dos componentes da aplicação.
 
-> **Atenção:** o script contém comandos `DROP TABLE` que removem os dados existentes nas quatro tabelas antes de recriá-las.
+---
 
-### 🌐 Aplicação Web
+## 🎥 5. Vídeo Pitch
 
-1. Acesse a pasta `web`.
-2. Abra o arquivo `index.html` em um navegador.
-3. Utilize o menu da aplicação para navegar entre as páginas.
+A apresentação do projeto está disponível no YouTube:
 
-## 🔗 8. Links do projeto
+▶️ **Assistir ao vídeo pitch:**
 
-| Recurso | Link |
-|---|---|
-| Repositório GitHub | [Global Solution 2026.1](https://github.com/FIAP-ON-2025/Global-Solution-2026-1) |
-| Aplicação Web — GitHub Pages | Pendente de publicação |
-| Vídeo Pitch | Pendente de gravação e publicação |
+https://youtu.be/fTa_VRSmF3A
 
-## 👥 9. Integrantes
+---
 
-O grupo é composto por **cinco integrantes**.
+## 🔗 6. Repositório
 
-A relação dos participantes, acompanhada dos respectivos RMs, está disponível no arquivo [`integrantes.txt`](integrantes.txt).
+O código-fonte e os demais arquivos do projeto estão disponíveis no GitHub.
 
-## 🤖 10. Uso de inteligência artificial
+📂 **Repositório oficial:**
 
-Foi utilizada ferramenta de inteligência artificial generativa como apoio à orientação técnica relacionada à organização do repositório e à elaboração desta documentação.
+https://github.com/FIAP-ON-2025/Global-Solution-2026-1
 
-As informações e os materiais do projeto devem ser revisados e validados pelos integrantes do grupo.
+---
+
+## 👥 7. Integrantes
+
+O grupo é composto por cinco integrantes.
+
+A relação com os nomes completos e respectivos RMs está disponível no arquivo:
+
+`integrantes.txt`
+
+---
+
+## 🤖 8. Utilização de Inteligência Artificial
+
+Foi utilizada ferramenta de inteligência artificial generativa como apoio durante o desenvolvimento do trabalho, principalmente para orientação técnica, esclarecimento de dúvidas, organização do repositório e revisão da documentação.
+
+As decisões de implementação, os códigos e os materiais entregues devem ser compreendidos, revisados e validados pelos integrantes da equipe.
 
 ---
 
 <p align="center">
-  <strong>Global Solution FIAP 2026.1</strong><br/>
-  <sub>Alerta Cidadão — Tecnologia e prevenção a serviço da sociedade.</sub>
+  <strong>Alerta Cidadão — Global Solution FIAP 2026.1</strong>
+  <br />
+  Projeto acadêmico desenvolvido por estudantes da FIAP.
 </p>
