@@ -1,10 +1,10 @@
-#  Alerta Cidadão
+# Alerta Cidadão
 
-## Projeto Acadêmico — Global Solution FIAP 2026.1
+## Projeto Acadêmico — Global Solution FIAP 2026.2
 
-Uma solução digital voltada ao monitoramento de situações de risco, organização de informações e comunicação de alertas à população.
+O Alerta Cidadão é uma solução digital voltada ao monitoramento de situações de risco, organização de informações e comunicação de alertas à população.
 
-O **Alerta Cidadão** tem como objetivo auxiliar na identificação de possíveis situações de risco, permitindo o acompanhamento de regiões, cidadãos, leituras e alertas relacionados a eventos que possam representar ameaças à comunidade.
+O projeto busca auxiliar na identificação de possíveis situações de risco, permitindo o acompanhamento de regiões, cidadãos, leituras e alertas relacionados a eventos que possam representar ameaças à comunidade.
 
 ---
 
@@ -20,7 +20,7 @@ O projeto foi desenvolvido em três módulos: aplicação Java, banco de dados e
 
 <p align="center">
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
-  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white" />
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
@@ -31,32 +31,24 @@ O projeto foi desenvolvido em três módulos: aplicação Java, banco de dados e
 ## 📁 Estrutura do projeto
 
 ```text
-Global-Solution-2026-1/
-│
+Global-Solution-2026-2/
 ├── banco/
 │   └── alerta_cidadao.sql
-│
 ├── diagramas/
 │   ├── diagrama-classes.pdf
 │   ├── diagrama-classes.png
 │   └── diagrama-classes.puml
-│
 ├── java/
 │   └── src/
 │       ├── Main.java
 │       ├── model/
 │       ├── service/
 │       └── view/
-│
 ├── web/
-│   ├── index.html
-│   ├── arquivos da aplicação Web
-│   └── README.md
-│
+│   └── arquivos da aplicação Web
 ├── .github/
 │   └── workflows/
 │       └── static.yml
-│
 ├── integrantes.txt
 └── README.md
 ```
@@ -65,7 +57,7 @@ Global-Solution-2026-1/
 
 ## ☕ 1. Aplicação Java
 
-A aplicação Java foi desenvolvida com organização em classes e separação de responsabilidades, utilizando uma estrutura dividida em modelos, serviços e interface de interação.
+A aplicação Java foi desenvolvida com organização em classes e separação de responsabilidades, utilizando modelos, serviços e interface de interação.
 
 Entre as funcionalidades desenvolvidas estão:
 
@@ -75,33 +67,31 @@ Entre as funcionalidades desenvolvidas estão:
 - Geração e gerenciamento de alertas.
 - Validações de dados durante as operações.
 
-A aplicação utiliza classes responsáveis pela representação das entidades e serviços que executam as operações do sistema.
-
 ### Como executar
 
 1. Abra o projeto em uma IDE compatível com Java.
 2. Localize o arquivo `Main.java`.
 3. Execute a aplicação.
-4. Utilize o menu apresentado no terminal para acessar as funcionalidades.
+4. Utilize o menu apresentado no terminal.
 
 ---
 
-## 🗄️ 2. Banco de dados
+## 🗄️ 2. Banco de dados — Oracle
 
-O banco de dados foi desenvolvido em MySQL, utilizando relacionamentos entre as entidades do projeto.
+O projeto utiliza Oracle como tecnologia de banco de dados, com modelagem das entidades e relacionamentos necessários para representar as informações do Alerta Cidadão.
 
 O script está disponível em:
 
 `banco/alerta_cidadao.sql`
 
-### Tabelas utilizadas
+### Tabelas do projeto
 
-- **regiao:** armazena informações das regiões monitoradas.
-- **cidadao:** registra os cidadãos associados às regiões.
-- **leitura:** armazena informações das leituras realizadas.
-- **alerta:** registra os alertas relacionados às situações de risco.
+- **REGIAO:** armazena informações das regiões monitoradas.
+- **CIDADAO:** registra os cidadãos associados às regiões.
+- **LEITURA:** armazena informações das leituras realizadas.
+- **ALERTA:** registra os alertas relacionados às situações de risco.
 
-### Recursos implementados
+### Recursos da modelagem
 
 - Chaves primárias (PRIMARY KEY).
 - Chaves estrangeiras (FOREIGN KEY).
@@ -109,17 +99,13 @@ O script está disponível em:
 - Restrições de unicidade (UNIQUE).
 - Restrições de validação (CHECK).
 - Registros de exemplo (INSERT).
-- Consultas utilizando relacionamentos entre tabelas (INNER JOIN).
+- Consultas utilizando relacionamentos entre tabelas (JOIN).
 
-### Como executar
+### Ferramenta de modelagem
 
-1. Abra o MySQL ou uma ferramenta compatível.
-2. Localize o arquivo `alerta_cidadao.sql`.
-3. Execute o script no ambiente MySQL.
+A modelagem do banco de dados pode ser realizada por meio do Oracle SQL Developer Data Modeler, utilizado para elaborar e visualizar diagramas entidade-relacionamento.
 
-**Atenção:** o script contém comandos DROP TABLE para recriar as tabelas. Sua execução remove as tabelas existentes com esses nomes e seus dados.
-
-Recomendação: utilizar MySQL 8.0.16 ou superior para garantir o suporte às restrições CHECK utilizadas.
+**Observação:** a identificação do banco foi atualizada para Oracle. A compatibilidade e a execução do script SQL devem ser verificadas no ambiente Oracle utilizado pela equipe.
 
 ---
 
@@ -133,7 +119,7 @@ Foram utilizados HTML, CSS e JavaScript para desenvolver a interface e suas func
 
 - Interface com informações organizadas sobre o projeto.
 - Visualização de regiões e alertas.
-- Utilização de arrays em JavaScript para organizar os dados.
+- Utilização de arrays de objetos em JavaScript.
 - Filtros e manipulação de informações no DOM.
 - Formulário com validação de campos.
 - Layout responsivo para diferentes tamanhos de tela.
@@ -158,7 +144,7 @@ Arquivos disponíveis na pasta `diagramas/`:
 - `diagrama-classes.png`
 - `diagrama-classes.puml`
 
-O diagrama apresenta as principais classes, seus relacionamentos e a organização dos componentes da aplicação.
+O diagrama entidade-relacionamento (ER) também faz parte da documentação prevista para a modelagem do banco de dados.
 
 ---
 
@@ -174,8 +160,6 @@ https://youtu.be/fTa_VRSmF3A
 
 ## 🔗 6. Repositório
 
-O código-fonte e os demais arquivos do projeto estão disponíveis no GitHub.
-
 📂 **Repositório oficial:**
 
 https://github.com/FIAP-ON-2025/Global-Solution-2026-1
@@ -186,9 +170,7 @@ https://github.com/FIAP-ON-2025/Global-Solution-2026-1
 
 O grupo é composto por cinco integrantes.
 
-A relação com os nomes completos e respectivos RMs está disponível no arquivo:
-
-`integrantes.txt`
+A relação com os nomes completos e respectivos RMs está disponível no arquivo `integrantes.txt`.
 
 ---
 
@@ -201,7 +183,7 @@ As decisões de implementação, os códigos e os materiais entregues devem ser 
 ---
 
 <p align="center">
-  <strong>Alerta Cidadão — Global Solution FIAP 2026.1</strong>
+  <strong>Alerta Cidadão — Global Solution FIAP 2026.2</strong>
   <br />
   Projeto acadêmico desenvolvido por estudantes da FIAP.
 </p>
