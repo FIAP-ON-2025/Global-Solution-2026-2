@@ -1,6 +1,6 @@
 # Alerta Cidadão
 
-## Projeto Acadêmico — Global Solution FIAP 2026.2
+## Projeto Acadêmico — Global Solution FIAP 2026/2
 
 O Alerta Cidadão é uma solução digital voltada ao monitoramento de situações de risco, organização de informações e comunicação de alertas à população.
 
@@ -13,6 +13,38 @@ O projeto busca auxiliar na identificação de possíveis situações de risco, 
 Desenvolver uma solução que contribua para o monitoramento de regiões e o gerenciamento de informações relacionadas a possíveis situações de risco, utilizando recursos tecnológicos para organizar dados e facilitar o acesso às informações.
 
 O projeto foi desenvolvido em três módulos: aplicação Java, banco de dados e aplicação Web.
+
+---
+
+## ⚠️ O problema
+
+Em maio de 2024, as enchentes no Rio Grande do Sul atingiram 469 das 497 cidades do estado, afetaram mais de 2,3 milhões de pessoas e causaram 183 mortes. Muitas famílias tiveram poucos minutos para sair de casa, ou nem isso.
+
+O problema não é só a chuva: é a informação que não chega a tempo para quem mora na beira do rio ou na encosta do morro. E esse risco se repete todos os anos, com enchentes, deslizamentos, incêndios e ondas de calor.
+
+---
+
+## 💡 A solução
+
+O Alerta Cidadão recebe leituras de chuva, nível do rio, temperatura e umidade de cada região. Quando um valor passa do limite de risco, o sistema gera o alerta automaticamente e avisa os moradores cadastrados naquela área, reduzindo o tempo entre o perigo e o aviso.
+
+Regras de risco (limites de exemplo):
+
+- Chuva a partir de 50 mm gera alerta de enchente (crítico a partir de 100 mm).
+- Chuva a partir de 40 mm em área de risco gera alerta de deslizamento.
+- Rio a partir de 3 m acima do normal gera alerta de enchente (crítico a partir de 5 m).
+- Temperatura a partir de 38 °C gera alerta de onda de calor (crítico a partir de 42 °C).
+- Umidade do ar até 20% gera alerta de incêndio (crítico até 12%).
+
+Não são criados dois alertas ativos do mesmo tipo na mesma região: um alerta existente só é atualizado quando o novo risco é mais grave.
+
+---
+
+## 🌍 ODS relacionados
+
+- **ODS 11 — Cidades e comunidades sustentáveis:** ajuda o município e a Defesa Civil a enxergar onde o risco está maior e a reduzir perdas causadas por desastres.
+- **ODS 13 — Ação contra a mudança global do clima:** fortalece a capacidade de resposta da população a eventos climáticos extremos, que estão cada vez mais frequentes.
+- **ODS 3 — Saúde e bem-estar:** o aviso antecipado protege vidas e reduz a exposição das famílias em áreas de risco.
 
 ---
 
@@ -31,9 +63,12 @@ O projeto foi desenvolvido em três módulos: aplicação Java, banco de dados e
 ## 📁 Estrutura do projeto
 
 ```text
-Global-Solution-2026-2/
+Global-Solution-2026-1/
 ├── banco/
-│   └── alerta_cidadao.sql
+│   ├── alerta_cidadao.sql
+│   ├── diagrama-er.pdf
+│   ├── diagrama-er.png
+│   └── diagrama-er.puml
 ├── diagramas/
 │   ├── diagrama-classes.pdf
 │   ├── diagrama-classes.png
@@ -45,7 +80,13 @@ Global-Solution-2026-2/
 │       ├── service/
 │       └── view/
 ├── web/
-│   └── arquivos da aplicação Web
+│   ├── index.html
+│   ├── areas.html
+│   ├── alertas.html
+│   ├── cadastro.html
+│   ├── script.js
+│   ├── style.css
+│   └── README.md
 ├── .github/
 │   └── workflows/
 │       └── static.yml
@@ -101,11 +142,19 @@ O script está disponível em:
 - Registros de exemplo (INSERT).
 - Consultas utilizando relacionamentos entre tabelas (JOIN).
 
-### Ferramenta de modelagem
+### Diagrama entidade-relacionamento
 
-A modelagem do banco de dados pode ser realizada por meio do Oracle SQL Developer Data Modeler, utilizado para elaborar e visualizar diagramas entidade-relacionamento.
+O diagrama ER está na pasta `banco/` (`diagrama-er.pdf`, `diagrama-er.png` e `diagrama-er.puml`). Cada cidadão, leitura e alerta pertence a uma região, por meio das chaves estrangeiras `fk_cidadao_regiao`, `fk_leitura_regiao` e `fk_alerta_regiao`.
 
-**Observação:** a identificação do banco foi atualizada para Oracle. A compatibilidade e a execução do script SQL devem ser verificadas no ambiente Oracle utilizado pela equipe.
+### Como executar
+
+1. Abra o Oracle SQL Developer e conecte-se ao banco.
+2. Abra o arquivo `banco/alerta_cidadao.sql`.
+3. Execute como script (F5).
+
+O script remove as tabelas do projeto, se já existirem, cria tudo novamente, insere os dados de exemplo (os mesmos da aplicação Java) e termina com a consulta das regiões em risco: alertas ativos, nível mais grave e quantidade de moradores a avisar. Pode ser executado várias vezes sem erro.
+
+**Atenção:** a execução apaga as tabelas REGIAO, CIDADAO, LEITURA e ALERTA existentes e seus dados.
 
 ---
 
@@ -114,6 +163,13 @@ A modelagem do banco de dados pode ser realizada por meio do Oracle SQL Develope
 A aplicação Web apresenta uma interface voltada à visualização de informações relacionadas ao monitoramento de regiões e alertas.
 
 Foram utilizados HTML, CSS e JavaScript para desenvolver a interface e suas funcionalidades.
+
+### Páginas
+
+- `index.html`: painel com totais e alertas ativos.
+- `areas.html`: regiões monitoradas, com filtro por nível de risco e busca por nome ou cidade.
+- `alertas.html`: alertas ativos, com filtros por região, tipo de risco e gravidade.
+- `cadastro.html`: cadastro para receber avisos, com validação dos campos na própria página.
 
 ### Recursos desenvolvidos
 
@@ -136,15 +192,19 @@ https://fiap-on-2025.github.io/Global-Solution-2026-1/
 
 ## 📊 4. Diagramas
 
-O projeto possui documentação visual da estrutura da aplicação Java por meio de um diagrama de classes UML.
-
-Arquivos disponíveis na pasta `diagramas/`:
+**Diagrama de classes (UML)** da aplicação Java, na pasta `diagramas/`:
 
 - `diagrama-classes.pdf`
 - `diagrama-classes.png`
 - `diagrama-classes.puml`
 
-O diagrama entidade-relacionamento (ER) também faz parte da documentação prevista para a modelagem do banco de dados.
+**Diagrama entidade-relacionamento (ER)** do banco de dados, na pasta `banco/`:
+
+- `diagrama-er.pdf`
+- `diagrama-er.png`
+- `diagrama-er.puml`
+
+Os dois diagramas são coerentes entre si: as associações das classes `Cidadao`, `Leitura` e `Alerta` com `Regiao` correspondem às chaves estrangeiras das tabelas.
 
 ---
 
@@ -183,7 +243,7 @@ As decisões de implementação, os códigos e os materiais entregues devem ser 
 ---
 
 <p align="center">
-  <strong>Alerta Cidadão — Global Solution FIAP 2026.2</strong>
+  <strong>Alerta Cidadão — Global Solution FIAP 2026/2</strong>
   <br />
   Projeto acadêmico desenvolvido por estudantes da FIAP.
 </p>
