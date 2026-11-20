@@ -238,8 +238,6 @@ A relação com os nomes completos e respectivos RMs está disponível no arquiv
 
 Foi utilizada ferramenta de inteligência artificial generativa como apoio durante o desenvolvimento do trabalho, principalmente para orientação técnica, esclarecimento de dúvidas, organização do repositório e revisão da documentação.
 
-As decisões de implementação, os códigos e os materiais entregues devem ser compreendidos, revisados e validados pelos integrantes da equipe.
-
 ---
 
 <p align="center">
